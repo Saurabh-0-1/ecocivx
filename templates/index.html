@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EcoCivX - Environmental Monitoring & Civic Issue Reporting</title>
+  <meta name="description" content="EcoCivX is a modern environmental dashboard and citizen civic issue reporting platform for tracking air quality, waste, potholes, and urban ecology.">
+  <meta name="theme-color" content="#0b1d16">
+  
+  <!-- Modern Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <!-- System Prototype Notification Banner -->
+  <aside class="proto-banner" role="region" aria-label="Prototype Notice">
+    <div class="banner-inner container">
+      <span class="banner-pill">Prototype Milestone 1</span>
+      <p class="banner-text">
+        <strong>Notice:</strong> Environmental metrics and map layers are simulated sample data for UI demonstration. Civic reports are stored in active session memory (resets on restart).
+      </p>
+      <a href="#about" class="banner-link">Learn More &rarr;</a>
+    </div>
+  </aside>
+
+  <!-- Navigation Header -->
+  <header class="site-header" id="header">
+    <div class="header-container container">
+      <a href="#dashboard" class="brand-logo" aria-label="EcoCivX Home">
+        <span class="logo-icon" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="16" cy="16" r="14" stroke="#a3e635" stroke-width="2.2" stroke-dasharray="4 2"/>
+            <path d="M16 6C10.4772 6 6 10.4772 6 16C6 21.5228 10.4772 26 16 26C18.5 26 21 24.5 22.5 22C24 19.5 26 16 26 11C21 11 18.5 8.5 16 6Z" fill="#1a3d2e" stroke="#bef264" stroke-width="2"/>
+            <path d="M12 18L16 12L20 18H12Z" fill="#a3e635"/>
+          </svg>
+        </span>
+        <span class="logo-text">Eco<span class="logo-accent">CivX</span></span>
+        <span class="version-tag">v0.1</span>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="main-nav" id="mainNav" aria-label="Main Navigation">
+        <ul class="nav-list">
+          <li><a href="#dashboard" class="nav-link active" id="navLinkDashboard">Dashboard</a></li>
+          <li><a href="#explore" class="nav-link" id="navLinkExplore">Explore Map</a></li>
+          <li><a href="#issues-feed" class="nav-link" id="navLinkIssues">Civic Feed</a></li>
+          <li><a href="#report" class="nav-link" id="navLinkReport">Report Issue</a></li>
+          <li><a href="#about" class="nav-link" id="navLinkAbout">About</a></li>
+        </ul>
+      </nav>
+
+      <!-- Header Actions -->
+      <div class="header-actions">
+        <a href="#report" class="btn btn-primary btn-sm" id="btnHeaderReport">
+          <span class="btn-icon" aria-hidden="true">+</span> Report an Issue
+        </a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <!-- Hero Section -->
+    <section class="hero-section" id="dashboard">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="hero-badge">
+            <span class="pulsing-dot" aria-hidden="true"></span>
+            <span>Citizen-Powered Environmental Intelligence</span>
+          </div>
+          <h1 class="hero-title">
+            Empowering Citizens to Monitor & Report <span class="text-gradient">Local Urban Ecology</span>
+          </h1>
+          <p class="hero-subtitle">
+            EcoCivX bridges community vigilance with municipal action. Track localized ambient metrics and file verifiable reports on garbage accumulation, potholes, waterlogging, and pollution hotspots.
+          </p>
+
+          <div class="hero-cta-group">
+            <a href="#report" class="btn btn-primary" id="btnHeroReport">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+              Report a Civic Problem
+            </a>
+            <a href="#explore" class="btn btn-secondary" id="btnHeroExplore">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Explore Hotspot Map
+            </a>
+          </div>
+
+          <div class="hero-proof-bar">
+            <div class="proof-item">
+              <span class="proof-value" id="proofActiveCount">--</span>
+              <span class="proof-label">Reports Logged</span>
+            </div>
+            <div class="proof-divider" aria-hidden="true"></div>
+            <div class="proof-item">
+              <span class="proof-value">5</span>
+              <span class="proof-label">Pollutants Tracked</span>
+            </div>
+            <div class="proof-divider" aria-hidden="true"></div>
+            <div class="proof-item">
+              <span class="proof-value">FastAPI</span>
+              <span class="proof-label">Powered Backend</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Graphic / Quick Status Card -->
+        <div class="hero-card-panel">
+          <div class="glass-card status-summary-card">
+            <div class="card-header-bar">
+              <div class="status-indicator">
+                <span class="indicator-led online" aria-hidden="true"></span>
+                <span>Session Live &bull; Prototype</span>
+              </div>
+              <span class="data-tag demo-tag">Simulated Telemetry</span>
+            </div>
+
+            <div class="aqi-hero-visual">
+              <div class="aqi-circle" id="heroAqiCircle">
+                <span class="aqi-number" id="heroAqiVal">112</span>
+                <span class="aqi-unit">AQI Index</span>
+              </div>
+              <div class="aqi-summary-text">
+                <h3 id="heroAqiStatus">Moderate Air Quality</h3>
+                <p>Primary pollutant: <strong id="heroAqiPrimary">PM2.5</strong></p>
+                <p class="text-muted">Simulated Station: Metro Eco-District</p>
+              </div>
+            </div>
+
+            <div class="quick-stats-row">
+              <div class="quick-stat">
+                <span class="stat-caption">Tree Canopy</span>
+                <strong class="stat-highlight" id="heroCanopy">28.4%</strong>
+              </div>
+              <div class="quick-stat">
+                <span class="stat-caption">Waste Efficiency</span>
+                <strong class="stat-highlight" id="heroWaste">81.2%</strong>
+              </div>
+              <div class="quick-stat">
+                <span class="stat-caption">Waterbody Score</span>
+                <strong class="stat-highlight" id="heroWater">64/100</strong>
+              </div>
+            </div>
+
+            <div class="card-footer-alert">
+              <small>⚠️ Note: Telemetry values are realistic benchmarks used to showcase interface components.</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Environmental Overview Cards Section -->
+    <section class="section environmental-overview-section" id="environmental-overview">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-title-wrap">
+            <span class="eyebrow">Environmental Snapshot</span>
+            <h2 class="section-title">Urban Ecological Indicators</h2>
+          </div>
+          <div class="section-badge-wrap">
+            <span class="data-tag demo-tag">Sample Data Mode</span>
+          </div>
+        </div>
+
+        <div class="cards-grid four-columns">
+          <!-- Card 1: Tree Canopy -->
+          <article class="glass-card stat-card">
+            <div class="stat-card-header">
+              <div class="stat-icon-wrap canopy">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L6 8h3v6h6V8h3L12 2zM12 14v8"/></svg>
+              </div>
+              <span class="card-tag">Canopy Index</span>
+            </div>
+            <div class="stat-value-group">
+              <span class="stat-large" id="overviewCanopy">28.4%</span>
+              <span class="stat-subtext">Municipal Target: 33.0%</span>
+            </div>
+            <div class="progress-bar-bg" role="progressbar" aria-valuenow="28.4" aria-valuemin="0" aria-valuemax="100" aria-label="Tree Canopy Coverage">
+              <div class="progress-bar-fill canopy-fill" style="width: 28.4%;"></div>
+            </div>
+            <p class="card-footnote">Satellite NDVI analysis simulation &bull; <span class="tag-italic">Demo</span></p>
+          </article>
+
+          <!-- Card 2: Waste Efficiency -->
+          <article class="glass-card stat-card">
+            <div class="stat-card-header">
+              <div class="stat-icon-wrap waste">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+              </div>
+              <span class="card-tag">Waste Management</span>
+            </div>
+            <div class="stat-value-group">
+              <span class="stat-large" id="overviewWaste">81.2%</span>
+              <span class="stat-subtext">Collection Coverage</span>
+            </div>
+            <div class="progress-bar-bg" role="progressbar" aria-valuenow="81.2" aria-valuemin="0" aria-valuemax="100" aria-label="Waste Collection Efficiency">
+              <div class="progress-bar-fill waste-fill" style="width: 81.2%;"></div>
+            </div>
+            <p class="card-footnote">Ward sanitation routing model &bull; <span class="tag-italic">Demo</span></p>
+          </article>
+
+          <!-- Card 3: Waterbody Cleanliness -->
+          <article class="glass-card stat-card">
+            <div class="stat-card-header">
+              <div class="stat-icon-wrap water">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+              </div>
+              <span class="card-tag">Waterbody Quality</span>
+            </div>
+            <div class="stat-value-group">
+              <span class="stat-large" id="overviewWater">64/100</span>
+              <span class="stat-subtext">Lake & Catchment Index</span>
+            </div>
+            <div class="progress-bar-bg" role="progressbar" aria-valuenow="64" aria-valuemin="0" aria-valuemax="100" aria-label="Waterbody Cleanliness Score">
+              <div class="progress-bar-fill water-fill" style="width: 64%;"></div>
+            </div>
+            <p class="card-footnote">Simulated lake sensor telemetry &bull; <span class="tag-italic">Demo</span></p>
+          </article>
+
+          <!-- Card 4: Active Civic Reports -->
+          <article class="glass-card stat-card live-card">
+            <div class="stat-card-header">
+              <div class="stat-icon-wrap reports">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+              </div>
+              <span class="card-tag live-tag">Active Reports</span>
+            </div>
+            <div class="stat-value-group">
+              <span class="stat-large" id="overviewReports">4</span>
+              <span class="stat-subtext">Open in Active Session</span>
+            </div>
+            <div class="report-meta-indicator">
+              <span class="live-dot" aria-hidden="true"></span>
+              <span>FastAPI In-Memory Store</span>
+            </div>
+            <p class="card-footnote">Real-time count from active API session</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pollution and Air Quality Section -->
+    <section class="section air-quality-section" id="air-quality">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-title-wrap">
+            <span class="eyebrow">Atmospheric Monitoring</span>
+            <h2 class="section-title">Pollution & Air Quality Breakdown</h2>
+          </div>
+          <div class="section-badge-wrap">
+            <span class="data-tag demo-tag">Simulated Telemetry</span>
+          </div>
+        </div>
+
+        <!-- Telemetry Notice Banner -->
+        <div class="info-callout" role="note">
+          <div class="callout-icon" aria-hidden="true">⚠️</div>
+          <div class="callout-body">
+            <strong>Data Source Clarification:</strong>
+            The air quality indices displayed below are simulated baseline values for interface evaluation.
+            In production deployments, this component integrates with live environmental sensor APIs such as OpenAQ, CPCB, or municipal IoT grids.
+          </div>
+        </div>
+
+        <div class="aqi-details-grid">
+          <!-- Left side: Gauge & Summary -->
+          <div class="glass-card aqi-main-panel">
+            <div class="aqi-header">
+              <h3>Station Overview</h3>
+              <span class="station-badge" id="aqiStationName">Simulated Ambient Station-04</span>
+            </div>
+            <div class="aqi-meter-box">
+              <div class="meter-value" id="aqiMeterVal">112</div>
+              <div class="meter-status moderate" id="aqiMeterStatus">Moderate</div>
+              <p class="meter-desc">Air quality is acceptable; however, some sensitive individuals may experience minor respiratory symptoms.</p>
+            </div>
+            <div class="aqi-legend">
+              <div class="legend-scale">
+                <span class="scale-step good">0-50 Good</span>
+                <span class="scale-step moderate active">51-100 Mod</span>
+                <span class="scale-step unhealthy">101-200 Poor</span>
+                <span class="scale-step severe">201+ Severe</span>
+              </div>
+            </div>
+            <div class="aqi-meta">
+              <span>Primary Contaminant: <strong id="aqiPrimaryPollutant">PM2.5</strong></span>
+              <span id="aqiUpdatedTime">Updated: Recently</span>
+            </div>
+          </div>
+
+          <!-- Right side: Pollutants Grid -->
+          <div class="glass-card pollutants-panel">
+            <h3 class="panel-subtitle">Individual Pollutant Concentrations</h3>
+            <div class="pollutant-cards" id="pollutantsList">
+              <!-- Dynamically populated or rendered via JS -->
+              <div class="pollutant-row loading-row">Loading pollutant metrics...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GIS Map Placeholder Section -->
+    <section class="section map-section" id="explore">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-title-wrap">
+            <span class="eyebrow">Geospatial Explorer</span>
+            <h2 class="section-title">Civic Hotspots & Issue Coordinates</h2>
+          </div>
+          <div class="section-badge-wrap">
+            <span class="data-tag warning-tag">Map Disconnected</span>
+          </div>
+        </div>
+
+        <div class="glass-card map-container">
+          <!-- Prominent Disconnected Banner -->
+          <div class="map-disconnected-banner" role="status">
+            <div class="banner-icon" aria-hidden="true">🗺️</div>
+            <div class="banner-content">
+              <h4>Geographic GIS Module &bull; Live Map Tiles Disconnected</h4>
+              <p>
+                In this development milestone, external map tile providers (Mapbox/OpenStreetMap) and GPS reverse geocoding are disconnected.
+                The interactive radar below illustrates mock spatial distribution of the reports currently stored in EcoCivX.
+              </p>
+            </div>
+          </div>
+
+          <!-- Interactive Simulated Map Canvas / Radar Grid -->
+          <div class="simulated-map-canvas" id="simulatedMapCanvas">
+            <div class="radar-scan" aria-hidden="true"></div>
+            <div class="grid-overlay" aria-hidden="true"></div>
+            
+            <!-- Map Grid Center Coordinates -->
+            <div class="map-coordinates-label">
+              <span>LAT: 12.9716° N</span> &bull; <span>LON: 77.5946° E</span>
+              <span class="map-mode-label">[Grid Simulation]</span>
+            </div>
+
+            <!-- Dynamic Pin Markers container -->
+            <div class="map-pins-container" id="mapPinsContainer">
+              <!-- Rendered via JS -->
+            </div>
+
+            <!-- Pin Tooltip Modal / Floating Card -->
+            <div class="map-pin-card hidden" id="mapPinCard" role="dialog" aria-hidden="true">
+              <button class="pin-card-close" id="pinCardClose" aria-label="Close details">&times;</button>
+              <div class="pin-card-content" id="pinCardContent"></div>
+            </div>
+          </div>
+
+          <!-- Map Controls / Filter Legend -->
+          <div class="map-footer-controls">
+            <div class="map-legend">
+              <span class="legend-item"><span class="pin-dot garbage-pin"></span> Garbage Accumulation</span>
+              <span class="legend-item"><span class="pin-dot pothole-pin"></span> Road Potholes</span>
+              <span class="legend-item"><span class="pin-dot waterlogging-pin"></span> Waterlogging</span>
+              <span class="legend-item"><span class="pin-dot pollution-pin"></span> Local Pollution</span>
+            </div>
+            <div class="map-actions">
+              <button class="btn btn-secondary btn-sm" id="btnRecenterMap">Reset View</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Civic Issues Feed Section -->
+    <section class="section issues-feed-section" id="issues-feed">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-title-wrap">
+            <span class="eyebrow">Community Ledger</span>
+            <h2 class="section-title">Reported Civic & Environmental Issues</h2>
+          </div>
+          <div class="section-badge-wrap">
+            <a href="#report" class="btn btn-primary btn-sm">+ New Report</a>
+          </div>
+        </div>
+
+        <!-- Filter and Search Toolbar -->
+        <div class="feed-toolbar glass-card">
+          <div class="filter-group">
+            <label for="categoryFilter" class="filter-label">Category:</label>
+            <select id="categoryFilter" class="form-select select-compact">
+              <option value="">All Categories</option>
+              <option value="garbage">Garbage Accumulation</option>
+              <option value="pothole">Potholes & Roads</option>
+              <option value="waterlogging">Waterlogging & Drainage</option>
+              <option value="pollution">Air & Noise Pollution</option>
+              <option value="other">Other Civic Problem</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label for="statusFilter" class="filter-label">Status:</label>
+            <select id="statusFilter" class="form-select select-compact">
+              <option value="">All Statuses</option>
+              <option value="pending">Pending</option>
+              <option value="investigating">Investigating</option>
+              <option value="resolved">Resolved</option>
+            </select>
+          </div>
+
+          <div class="search-group">
+            <input type="text" id="searchInput" class="form-input search-input" placeholder="Search by area, title, or keyword..." aria-label="Search reports">
+          </div>
+
+          <button class="btn btn-secondary btn-sm" id="btnRefreshFeed" title="Reload reports from backend">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"></path><path d="M1 20v-6h6"></path><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+            Refresh
+          </button>
+        </div>
+
+        <!-- Issues Cards Grid -->
+        <div class="issues-grid" id="issuesGrid">
+          <div class="loading-state">
+            <div class="spinner" aria-hidden="true"></div>
+            <p>Loading reports from FastAPI service...</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Report an Issue Section -->
+    <section class="section report-section" id="report">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="eyebrow">Citizen Action</span>
+          <h2 class="section-title">Submit a Civic or Environmental Report</h2>
+          <p class="section-subtitle">
+            Help local communities and municipal teams spot hazards early. Your report will immediately appear in the active session feed.
+          </p>
+        </div>
+
+        <div class="form-wrapper glass-card">
+          <!-- Form Header Note -->
+          <div class="form-notice" role="note">
+            <span class="notice-icon" aria-hidden="true">ℹ️</span>
+            <span><strong>Prototype Storage Notice:</strong> Reports submitted in this milestone are stored in the server's active in-memory session. They will remain visible until the server restarts.</span>
+          </div>
+
+          <!-- Submission Feedback Banners -->
+          <div class="feedback-banner success-banner hidden" id="reportSuccessBanner" role="alert">
+            <div class="banner-msg">
+              <strong>Report Successfully Submitted!</strong>
+              <p id="successReportDetails">Your report has been logged with ID <code id="createdReportId">--</code>. It is now visible in the civic feed.</p>
+            </div>
+            <button class="banner-dismiss" id="dismissSuccessBanner" aria-label="Close notification">&times;</button>
+          </div>
+
+          <div class="feedback-banner error-banner hidden" id="reportErrorBanner" role="alert">
+            <div class="banner-msg">
+              <strong>Validation Error:</strong>
+              <ul id="errorList"></ul>
+            </div>
+            <button class="banner-dismiss" id="dismissErrorBanner" aria-label="Close error notification">&times;</button>
+          </div>
+
+          <!-- Form Element -->
+          <form id="civicReportForm" class="report-form" novalidate>
+            <div class="form-grid">
+              <!-- Issue Title -->
+              <div class="form-group full-width">
+                <label for="issueTitle" class="form-label">
+                  Issue Headline / Title <span class="required">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="issueTitle"
+                  name="title"
+                  class="form-input"
+                  placeholder="e.g. Broken water drainage valve flooding sidewalk"
+                  minlength="3"
+                  maxlength="120"
+                  required
+                >
+                <div class="form-hint">A concise summary (3–120 characters).</div>
+              </div>
+
+              <!-- Issue Category -->
+              <div class="form-group">
+                <label for="issueCategory" class="form-label">
+                  Problem Category <span class="required">*</span>
+                </label>
+                <select id="issueCategory" name="category" class="form-select" required>
+                  <option value="" disabled selected>Select category...</option>
+                  <option value="garbage">Garbage Accumulation / Waste Pile</option>
+                  <option value="pothole">Pothole / Road Surface Hazard</option>
+                  <option value="waterlogging">Waterlogging / Blocked Drain</option>
+                  <option value="pollution">Air / Noise / Smoke Pollution</option>
+                  <option value="other">Other Civic Problem</option>
+                </select>
+                <div class="form-hint">Helps route the report to the right department.</div>
+              </div>
+
+              <!-- Severity Level -->
+              <div class="form-group">
+                <label for="issueSeverity" class="form-label">
+                  Urgency / Severity Level <span class="required">*</span>
+                </label>
+                <select id="issueSeverity" name="severity" class="form-select" required>
+                  <option value="low">Low (Minor nuisance, non-hazardous)</option>
+                  <option value="medium" selected>Medium (Impacting pedestrians/traffic)</option>
+                  <option value="high">High (Active danger or hygiene risk)</option>
+                  <option value="critical">Critical (Immediate safety emergency)</option>
+                </select>
+                <div class="form-hint">Assess how urgent this problem is.</div>
+              </div>
+
+              <!-- Location / Address -->
+              <div class="form-group full-width">
+                <label for="issueLocation" class="form-label">
+                  Location / Landmark / Street Name <span class="required">*</span>
+                </label>
+                <div class="input-with-button">
+                  <input
+                    type="text"
+                    id="issueLocation"
+                    name="location"
+                    class="form-input"
+                    placeholder="e.g. Cross Road 4, Opposite Public Library, Sector 8"
+                    minlength="3"
+                    maxlength="160"
+                    required
+                  >
+                  <button type="button" class="btn btn-secondary btn-sm" id="btnPrefillLocation" title="Fill sample address and coordinates for testing">
+                    Use Sample Area
+                  </button>
+                </div>
+                <div class="form-hint">Provide clear landmarks or road names for verification.</div>
+              </div>
+
+              <!-- Coordinates (Optional Simulation) -->
+              <div class="form-group">
+                <label for="issueLatitude" class="form-label">Latitude (Optional GPS)</label>
+                <input
+                  type="number"
+                  step="0.0001"
+                  min="-90"
+                  max="90"
+                  id="issueLatitude"
+                  name="latitude"
+                  class="form-input"
+                  placeholder="e.g. 12.9716"
+                >
+                <div class="form-hint">Between -90.0 and 90.0</div>
+              </div>
+
+              <div class="form-group">
+                <label for="issueLongitude" class="form-label">Longitude (Optional GPS)</label>
+                <input
+                  type="number"
+                  step="0.0001"
+                  min="-180"
+                  max="180"
+                  id="issueLongitude"
+                  name="longitude"
+                  class="form-input"
+                  placeholder="e.g. 77.5946"
+                >
+                <div class="form-hint">Between -180.0 and 180.0</div>
+              </div>
+
+              <!-- Detailed Description -->
+              <div class="form-group full-width">
+                <label for="issueDescription" class="form-label">
+                  Detailed Description <span class="required">*</span>
+                </label>
+                <textarea
+                  id="issueDescription"
+                  name="description"
+                  class="form-textarea"
+                  rows="4"
+                  placeholder="Provide context: When did it start? How large is the accumulation or hazard? Is there an odor or traffic stoppage?"
+                  minlength="10"
+                  maxlength="1500"
+                  required
+                ></textarea>
+                <div class="form-counter-row">
+                  <span class="form-hint">Minimum 10 characters describing the issue.</span>
+                  <span class="char-count" id="descCharCount">0 / 1500</span>
+                </div>
+              </div>
+
+              <!-- Reporter Name (Optional) -->
+              <div class="form-group full-width">
+                <label for="reporterName" class="form-label">Citizen Name / Organization (Optional)</label>
+                <input
+                  type="text"
+                  id="reporterName"
+                  name="reporter_name"
+                  class="form-input"
+                  placeholder="Leave blank to report anonymously or enter your name"
+                  maxlength="80"
+                >
+                <div class="form-hint">Anonymous reporting is supported by default.</div>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary btn-lg" id="btnSubmitReport">
+                <span class="btn-spinner hidden" id="submitSpinner" aria-hidden="true"></span>
+                <span id="submitBtnText">Submit Civic Report</span>
+              </button>
+              <button type="reset" class="btn btn-ghost" id="btnResetForm">Clear Form</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Workflow & Platform Features Section -->
+    <section class="section workflow-section" id="workflow">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="eyebrow">Platform Architecture</span>
+          <h2 class="section-title">How EcoCivX Powers Civic Action</h2>
+          <p class="section-subtitle">
+            A transparent 4-stage pipeline connecting citizen alerts with municipal oversight.
+          </p>
+        </div>
+
+        <div class="workflow-steps">
+          <div class="step-card glass-card">
+            <div class="step-number">01</div>
+            <h3 class="step-title">Observe & Spot</h3>
+            <p class="step-desc">Citizens notice localized environmental hazards—overflowing bins, hazardous potholes, or waterlogging.</p>
+          </div>
+
+          <div class="step-connector" aria-hidden="true">&rarr;</div>
+
+          <div class="step-card glass-card">
+            <div class="step-number">02</div>
+            <h3 class="step-title">Validate & Submit</h3>
+            <p class="step-desc">FastAPI validates input constraints (coordinates, length, category) preventing empty or malformed submissions.</p>
+          </div>
+
+          <div class="step-connector" aria-hidden="true">&rarr;</div>
+
+          <div class="step-card glass-card">
+            <div class="step-number">03</div>
+            <h3 class="step-title">Corroborate</h3>
+            <p class="step-desc">Fellow neighborhood residents confirm and upvote the issue, elevating its priority level on the civic radar.</p>
+          </div>
+
+          <div class="step-connector" aria-hidden="true">&rarr;</div>
+
+          <div class="step-card glass-card">
+            <div class="step-number">04</div>
+            <h3 class="step-title">Dispatch & Resolve</h3>
+            <p class="step-desc">Structured APIs ready for future integration with municipal GIS ticketing systems (Open311, civic dashboards).</p>
+          </div>
+        </div>
+
+        <!-- Features Grid -->
+        <div class="features-grid cards-grid three-columns">
+          <div class="glass-card feature-card">
+            <div class="feature-icon" aria-hidden="true">⚡</div>
+            <h3>FastAPI Core</h3>
+            <p>High-performance asynchronous Python backend with automatic OpenAPI documentation and strict Pydantic schemas.</p>
+          </div>
+          <div class="glass-card feature-card">
+            <div class="feature-icon" aria-hidden="true">🌱</div>
+            <h3>Ecological Metrics</h3>
+            <p>Designed to scale from simulated benchmarks to live OpenAQ ambient monitors and European Space Agency Sentinel feeds.</p>
+          </div>
+          <div class="glass-card feature-card">
+            <div class="feature-icon" aria-hidden="true">🛡️</div>
+            <h3>Ethical Transparency</h3>
+            <p>Zero fabricated live data claims. Explicit indicators demarcating prototype demo telemetry from confirmed civic events.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section about-section" id="about">
+      <div class="container">
+        <div class="about-card glass-card">
+          <div class="about-header">
+            <span class="eyebrow">Project Context</span>
+            <h2>About the EcoCivX Prototype</h2>
+          </div>
+          <div class="about-content">
+            <p>
+              <strong>EcoCivX</strong> is an environmental monitoring and civic problem reporting prototype built as a full-stack proof-of-concept. It combines modern web aesthetics with robust server-side validation.
+            </p>
+            <div class="about-specs-grid">
+              <div class="spec-item">
+                <span class="spec-label">Backend</span>
+                <span class="spec-value">Python 3.13 + FastAPI</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-label">Validation</span>
+                <span class="spec-value">Pydantic v2 Schemas</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-label">Frontend</span>
+                <span class="spec-value">Semantic HTML5, CSS3, Vanilla JS</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-label">Automated Testing</span>
+                <span class="spec-value">pytest + httpx TestClient</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-label">Target Deployment</span>
+                <span class="spec-value">Render Free Web Service</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-label">API Documentation</span>
+                <span class="spec-value"><a href="/docs" target="_blank" rel="noopener">Interactive Swagger (/docs)</a></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <span class="logo-text">Eco<span class="logo-accent">CivX</span></span>
+        </div>
+        <p class="footer-tagline">
+          Clean cities, healthy air, empowered communities. Built with FastAPI and modern web standards.
+        </p>
+      </div>
+
+      <div class="footer-nav">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#dashboard">Dashboard</a></li>
+          <li><a href="#explore">Explore Map</a></li>
+          <li><a href="#issues-feed">Civic Feed</a></li>
+          <li><a href="#report">Report Issue</a></li>
+          <li><a href="#about">About Project</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-api">
+        <h4>Developer & API</h4>
+        <ul>
+          <li><a href="/docs" target="_blank" rel="noopener">Swagger UI (/docs)</a></li>
+          <li><a href="/redoc" target="_blank" rel="noopener">ReDoc Specs (/redoc)</a></li>
+          <li><a href="/api/health" target="_blank" rel="noopener">System Health Check</a></li>
+          <li><a href="/api/environmental/overview" target="_blank" rel="noopener">Overview Telemetry API</a></li>
+          <li><a href="/api/issues" target="_blank" rel="noopener">Issues REST Endpoint</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-status">
+        <h4>Service Vitals</h4>
+        <div class="status-pill-box">
+          <span class="status-dot-pulse" aria-hidden="true"></span>
+          <span id="footerApiStatus">Checking API status...</span>
+        </div>
+        <p class="status-note">Render-ready deployment configuration included.</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom container">
+      <p>&copy; EcoCivX Prototype. For civic education, prototyping, and community environmental monitoring.</p>
+      <p class="disclaimer-note">All sensor metrics marked as sample data. Reports persist in server session memory.</p>
+    </div>
+  </footer>
+
+  <!-- Application Logic Script -->
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
